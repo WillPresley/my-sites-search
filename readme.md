@@ -1,9 +1,6 @@
-# My Sites Search
+# Web Communications
+## Multisite Filter
 
-Provides a simple filtering mechanism for finding items in a large My Sites menu.
+Creates a filter for large multisite networks to make it easier to find sites.
 
-|Before|After|
-|------|-----|
-|![mss-before](mss-before.png)  |![mss-after](mss-after.png)   |
-
-Tested and working on WordPress 5.1 👍
+Based on https://github.com/trepmal/my-sites-search

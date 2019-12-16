@@ -1,23 +1,28 @@
 <?php
 /*
- * Plugin Name: My Sites Search
- * Plugin URI: trepmal.com
- * Description: https://twitter.com/trepmal/status/443189183478132736
- * Version: 2016.08.12
- * Author: Kailey Lampert
- * Author URI: kaileylampert.com
+ * Plugin Name: WC Multisite Filter
+ * Plugin URI: web.colostate.edu
+ * Description: Allows you to search/filter a large number of sites in a multisite network.
+ * Version: 1.0
+ * Author: Web Communications
+ * Author URI: web.colostate.edu
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * TextDomain: mss
+ * TextDomain: wc_mf
  * DomainPath:
  * Network: true
  */
 
-add_action( 'admin_bar_menu',        'mss_admin_bar_menu' );
-add_action( 'wp_enqueue_scripts',    'mss_enqueue_styles' );
-add_action( 'admin_enqueue_scripts', 'mss_enqueue_styles' );
-add_action( 'wp_enqueue_scripts',    'mss_enqueue_scripts' );
-add_action( 'admin_enqueue_scripts', 'mss_enqueue_scripts' );
+
+// Previously, these non-admin scripts were being enqueued even for non-logged-in users.
+if(is_user_logged_in())
+{
+	add_action( 'admin_bar_menu',        'wc_mf_admin_bar_menu' );
+	add_action( 'admin_enqueue_scripts', 'wc_mf_enqueue_styles' );
+	add_action( 'admin_enqueue_scripts', 'wc_mf_enqueue_scripts' );
+	add_action( 'wp_enqueue_scripts',    'wc_mf_enqueue_styles' );
+	add_action( 'wp_enqueue_scripts',    'wc_mf_enqueue_scripts' );
+}
 
 /**
  * Add search field menu item
@@ -25,7 +30,7 @@ add_action( 'admin_enqueue_scripts', 'mss_enqueue_scripts' );
  * @param WP_Admin_Bar $wp_admin_bar
  * @return void
  */
-function mss_admin_bar_menu( $wp_admin_bar ) {
+function wc_mf_admin_bar_menu( $wp_admin_bar ) {
 
 	$total_users_sites = count( $wp_admin_bar->user->blogs );
 	$show_if_gt        = apply_filters( 'mms_show_search_minimum_sites', 10 );
@@ -54,7 +59,7 @@ function mss_admin_bar_menu( $wp_admin_bar ) {
  *
  * @return void
  */
-function mss_enqueue_styles() {
+function wc_mf_enqueue_styles() {
 	ob_start();
 	?>
 #wp-admin-bar-my-sites-search.hide-if-no-js {
@@ -90,7 +95,7 @@ function mss_enqueue_styles() {
  *
  * @return void
  */
-function mss_enqueue_scripts() {
+function wc_mf_enqueue_scripts() {
 	ob_start();
 	?>
 jQuery(document).ready( function($) {
