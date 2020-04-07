@@ -1,4 +1,4 @@
-# Web Communications
+# Red Tail Design Company
 ## Multisite Filter
 
 Creates a filter for large multisite networks to make it easier to find sites.
