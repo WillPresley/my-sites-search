@@ -75,16 +75,40 @@ function wc_mf_enqueue_styles() {
 	width: 1px;
 	overflow: hidden;
 }
+#wp-admin-bar-my-sites-list {
+    direction: rtl;
+    padding-top: 38px;
+    overflow-y: auto;
+    overflow-x: visible;
+    max-height: 80vh;
+}
+#wp-admin-bar-my-sites-list li {
+    direction: ltr;
+}
 #wp-admin-bar-my-sites-search {
 	height: 38px;
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
 #wp-admin-bar-my-sites-search .ab-item {
 	height: 34px;
+}
+#wpadminbar .menupop li.hover {
+    position: relative;
+}
+#wpadminbar .menupop li.hover > .ab-sub-wrapper {
+    margin-left: 337px;
+    margin-top: -32px;
+    position: fixed;
 }
 #wp-admin-bar-my-sites-search input {
 	padding: 0 2px;
 	width: 95%;
 	width: calc( 100% - 4px );
+}
+#wpadminbar .quicklinks li .blavatar {
+    vertical-align: text-bottom;
 }
 	<?php
 	$style = ob_get_clean();
