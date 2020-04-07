@@ -111,8 +111,15 @@ function wc_mf_enqueue_styles() {
 	width: 95%;
 	width: calc( 100% - 4px );
 }
-#wpadminbar .quicklinks li .blavatar {
-    vertical-align: text-bottom;
+#wp-admin-bar-my-sites-list .blavatar {
+    vertical-align: text-bottom !important;
+}
+#wp-admin-bar-my-sites-list .blavatar:before {
+    margin-bottom: 0 !important;
+}
+#wpadminbar .menupop li#wp-admin-bar-network-admin.hover > .ab-sub-wrapper {
+    margin-top: -32px;
+    margin-left: 353px;
 }
 	<?php
 	$style = ob_get_clean();
