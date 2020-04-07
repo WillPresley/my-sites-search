@@ -80,7 +80,8 @@ function wc_mf_enqueue_styles() {
     padding-top: 38px;
     overflow-y: auto;
     overflow-x: visible;
-    max-height: 80vh;
+    max-height: 75%;
+    max-height: 75vh;
 }
 #wp-admin-bar-my-sites-list li {
     direction: ltr;
@@ -98,8 +99,11 @@ function wc_mf_enqueue_styles() {
     position: relative;
 }
 #wpadminbar .menupop li.hover > .ab-sub-wrapper {
-    margin-left: 337px;
-    margin-top: -32px;
+    margin-top: 0;
+    margin-left: 336px;
+    position: fixed;
+}
+#wpadminbar .menupop li > .ab-sub-wrapper.fixed {
     position: fixed;
 }
 #wp-admin-bar-my-sites-search input {
@@ -125,19 +129,36 @@ function wc_mf_enqueue_styles() {
 function wc_mf_enqueue_scripts() {
 	ob_start();
 	?>
+var waitForFinalEvent = (function () {
+    var timers = {};
+    return function (callback, ms, uniqueId) {
+        if (!uniqueId) { uniqueId = "Don't call this twice without a uniqueId"; }
+        if (timers[uniqueId]) { clearTimeout (timers[uniqueId]); }
+        timers[uniqueId] = setTimeout(callback, ms);
+    };
+})();
+// how long to wait before deciding the resize has stopped, in ms. Around 50-100 should work ok.
+var timeToWaitForLast = 200;
+
 jQuery(document).ready( function($) {
 	$('#wp-admin-bar-my-sites-search.hide-if-no-js').show();
 	$('#wp-admin-bar-my-sites-search input').keyup( function( ) {
-
 		var searchValRegex = new RegExp( $(this).val(), 'i');
-
 		$('#wp-admin-bar-my-sites-list > li.menupop').hide().filter(function() {
-
 			return searchValRegex.test( $(this).find('> a').text() );
-
 		}).show();
-
 	});
+
+    $( "#wp-admin-bar-my-sites-list > li.menupop" ).hover(
+        function() {
+            var windowTop   = $(window).scrollTop();
+            var fromTop     = $( this ).offset().top;
+            var childTop    = fromTop - windowTop;
+            $( this ).find('.ab-sub-wrapper').css('top', childTop);
+        }, function() {
+            /*$( this ).find('.ab-sub-wrapper').css('top', 'unset');*/
+        }
+    );
 });
 	<?php
 	$script = ob_get_clean();
