@@ -1,28 +1,31 @@
 <?php
 /*
- * Plugin Name: WC Multisite Filter
- * Plugin URI: web.colostate.edu
+ * Plugin Name: RTD Multisite Filter
+ * Plugin URI: https://redtaildesign.com
  * Description: Allows you to search/filter a large number of sites in a multisite network.
  * Version: 1.0
- * Author: Web Communications
- * Author URI: web.colostate.edu
+ * Author: Will Presley
+ * Author URI: https://redtaildesign.com
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * TextDomain: wc_mf
+ * TextDomain: rtdbase
  * DomainPath:
  * Network: true
  */
 
-
 // Previously, these non-admin scripts were being enqueued even for non-logged-in users.
-if(is_user_logged_in())
+function enqueue_stuff()
 {
+    if(is_user_logged_in())
+    {
 	add_action( 'admin_bar_menu',        'wc_mf_admin_bar_menu' );
 	add_action( 'admin_enqueue_scripts', 'wc_mf_enqueue_styles' );
 	add_action( 'admin_enqueue_scripts', 'wc_mf_enqueue_scripts' );
 	add_action( 'wp_enqueue_scripts',    'wc_mf_enqueue_styles' );
 	add_action( 'wp_enqueue_scripts',    'wc_mf_enqueue_scripts' );
+    }
 }
+add_action('init', 'enqueue_stuff');
 
 /**
  * Add search field menu item
