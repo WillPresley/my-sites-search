@@ -93,7 +93,10 @@ function wc_mf_enqueue_styles() {
     width: 100%;
 }
 #wp-admin-bar-my-sites-search .ab-item {
-	height: 34px;
+    height: 34px;
+}
+#wpadminbar .quicklinks #wp-admin-bar-my-sites.menupop > .ab-sub-wrapper > ul#wp-admin-bar-my-sites-list > li > .ab-item {
+    min-width: 300px;
 }
 #wpadminbar .menupop li.hover {
     position: relative;
